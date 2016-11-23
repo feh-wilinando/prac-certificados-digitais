@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<display-name>certificado-digital</display-name>
+
+	<welcome-file-list>
+		<welcome-file>/users/login.xhtml</welcome-file>
+	</welcome-file-list>
+
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/users/login.xhtml</form-login-page>
+			<form-error-page>/users/login.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	
+	<security-constraint>
+		<display-name>Certificados</display-name>
+		<web-resource-collection>
+			<web-resource-name>certificados</web-resource-name>
+			<url-pattern>/certificados/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>		
+			<role-name>USER</role-name>
+			<role-name>ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>	
+					
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>		
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>

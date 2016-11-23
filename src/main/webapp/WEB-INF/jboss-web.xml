@@ -1,0 +1,3 @@
+<jboss-web>
+	<security-domain>prac-security-domain</security-domain>
+</jboss-web>
