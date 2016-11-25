@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.com.fws.certificado_digital.models.users.User;
+import br.com.fws.certificado_digital.models.admin.User;
 
 public class UserDao implements Serializable {
 	

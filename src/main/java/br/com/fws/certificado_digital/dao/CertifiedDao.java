@@ -3,12 +3,11 @@ package br.com.fws.certificado_digital.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.com.fws.certificado_digital.models.Certified;
-import br.com.fws.certificado_digital.security.CurrentCustomer;
+import br.com.fws.certificado_digital.models.customer.Certified;
+import br.com.fws.certificado_digital.models.customer.Customer;
 
 public class CertifiedDao implements Serializable {
 
@@ -17,12 +16,9 @@ public class CertifiedDao implements Serializable {
 	@PersistenceContext
 	private EntityManager manager;
 	
-	@Inject
-	private CurrentCustomer currentCustomer;
-	
-	public List<Certified> all(){
-		return manager.createQuery("select c from Certified c join fetch c.empresa e where e.id = :id",Certified.class)
-				.setParameter("id", currentCustomer.get().getId())
+	public List<Certified> allOf(Customer customer){
+		return manager.createQuery("select c from Certified c join fetch c.customer c where c.id = :customer",Certified.class)
+				.setParameter("customer", customer)
 				.getResultList();
 	}
 

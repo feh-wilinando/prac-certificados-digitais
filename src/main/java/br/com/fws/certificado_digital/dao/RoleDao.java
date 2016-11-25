@@ -3,7 +3,7 @@ package br.com.fws.certificado_digital.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.com.fws.certificado_digital.models.users.Role;
+import br.com.fws.certificado_digital.models.admin.Role;
 
 public class RoleDao {
 
