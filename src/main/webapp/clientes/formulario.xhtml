@@ -14,7 +14,11 @@
 
 		<ui:define name="content">
 			<h:form>
-				<div class="col-md-6 col-xs-12 col-md-offset-3">
+				<h:inputHidden value="#{customerBean.customer.id}"/>
+			
+				<div class="col-md-7 col-xs-12 col-md-offset-3">
+					<p:messages showSummary="true" showDetail="true" globalOnly="true" closable="true" showIcon="false"/>
+				
 					<fieldset>
 						<legend>Empresa</legend>
 						<div class="row">
@@ -24,16 +28,23 @@
 							<div class="col-md-8 col-xs-12">
 								<p:inputText id="razaoSocial" styleClass="col-md-12 col-xs-12"
 									value="#{customerBean.customer.companyName}" />
+								<p:message for="razaoSocial" display="text"/>
 							</div>
 						</div>
+						
+						<p:spacer/>
+						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
 								<p:outputLabel for="cnpj" value="CNPJ"/>
 							</div>
 							<div class="col-md-4 col-xs-12">
 								<p:inputMask styleClass="col-md-12 col-xs-12" mask="99.999.999/9999-99" id="cnpj" value="#{customerBean.customer.companyRegistration}"/>
+								<p:message for="cnpj" display="text"/>
 							</div>
 						</div>
+						
+						<p:spacer/>
 												
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
@@ -41,8 +52,11 @@
 							</div>
 							<div class="col-md-4 col-xs-12">
 								<p:inputText styleClass="col-md-12 col-xs-12" id="im" value="#{customerBean.customer.municipalRegistration}"/>
+								<p:message for="im" display="text"/>
 							</div>							
 						</div>
+						
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
@@ -50,8 +64,11 @@
 							</div>
 							<div class="col-md-4 col-xs-12">
 								<p:inputText styleClass="col-md-12 col-xs-12" id="ie" value="#{customerBean.customer.stateRegistration}"/>
+								<p:message for="ie" display="text"/>
 							</div>	
 						</div>
+						
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
@@ -59,14 +76,18 @@
 							</div>
 							<div class="col-md-4 col-xs-12">
 								<p:inputText styleClass="col-md-12 col-xs-12" id="street" value="#{customerBean.customer.address.street}"/>
+								<p:message for="street" display="text"/>
 							</div>	
 							<div class="col-md-1 col-xs-12">
 								<p:outputLabel for="number" value="Nº"/>
 							</div>
 							<div class="col-md-3 col-xs-12">							
 								<p:inputText styleClass="col-md-12 col-xs-12" id="number" value="#{customerBean.customer.address.number}"/>
+								<p:message for="number" display="text"/>
 							</div>	
 						</div>
+						
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
@@ -74,65 +95,107 @@
 							</div>
 							<div class="col-md-3 col-xs-12">
 								<p:inputText styleClass="col-md-12 col-xs-12" id="complement" value="#{customerBean.customer.address.complement}"/>
+								<p:message for="complement" display="text"/>
 							</div>	
 							<div class="col-md-2 col-xs-12">
 								<p:outputLabel for="city" value="Cidade"/>
 							</div>
 							<div class="col-md-3 col-xs-12">							
 								<p:inputText styleClass="col-md-12 col-xs-12" id="city" value="#{customerBean.customer.address.city}"/>
+								<p:message for="city" display="text"/>
 							</div>	
 						</div>
 						
+						<p:spacer/>
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
 								<p:outputLabel for="state" value="Estado"/>
 							</div>
 							<div class="col-md-3 col-xs-12">
 								<p:selectOneMenu value="#{customerBean.customer.address.state}" id="state" filter="true">
-									<f:selectItems value="#{customerBean.estados}" var="estado" itemLabel="#{estado.name()}" itemValue="#{estado.name()}"/>								
+									<f:selectItems value="#{customerBean.estados}" var="estado" itemLabel="#{estado.name()}" itemValue="#{estado}"/>								
 								</p:selectOneMenu>
+								<p:message for="state" display="text"/>
 							</div>	
 							<div class="col-md-2 col-xs-12">
 								<p:outputLabel for="zipCode" value="CEP"/>
 							</div>
 							<div class="col-md-3 col-xs-12">							
 								<p:inputMask styleClass="col-md-12 col-xs-12"  mask="99999-999" id="zipCode" value="#{customerBean.customer.address.zipCode}"/>
+								<p:message for="zipCode" display="text"/>
 							</div>	
 						</div>
+						
+						<p:spacer/>
+						
+						<div class="row">
+							<div class="col-md-4 col-xs-12">
+								<p:outputLabel for="contact" value="Contato"/>
+							</div>
+							<div class="col-md-6 col-xs-12">
+								<p:inputText styleClass="col-md-12 col-xs-12" id="contact" value="#{customerBean.customer.contact}"/>
+								<p:message for="contact" display="text"/>
+							</div>	
+						</div>
+						
+						
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
 								<p:outputLabel for="email" value="E-mail"/>
 							</div>
 							<div class="col-md-6 col-xs-12">
-								<p:inputText styleClass="col-md-12 col-xs-12" id="email" value="#{customerBean.customer.user.email}"/>
+								<p:inputText styleClass="col-md-12 col-xs-12" id="email" value="#{customerBean.customer.email}"/>
+								<p:message for="email" display="text"/>
 							</div>	
 						</div>
 						
-						<div class="row">
-							<div class="col-md-4 col-xs-12">
-								<p:outputLabel for="password" value="Senha"/>
-							</div>
-							<div class="col-md-4 col-xs-12">
-								<p:password styleClass="col-md-12 col-xs-12" id="password" promptLabel="Digite sua senha"
-											feedback="true" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte" 
-											match="confirmPassword" value="#{customerBean.customer.user.password}"/>
-							</div>	
-						</div>
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-xs-12">
-								<p:outputLabel for="confirmPassword" value="Confirme sua Senha"/>
+								<p:outputLabel for="jobTitle" value="Cargo"/>
 							</div>
-							<div class="col-md-4 col-xs-12">
-								<p:password styleClass="col-md-12 col-xs-12" id="confirmPassword"/>
+							<div class="col-md-6 col-xs-12">
+								<p:inputText styleClass="col-md-12 col-xs-12" id="jobTitle" value="#{customerBean.customer.jobTitle}"/>
+								<p:message for="jobTitle" display="text"/>
 							</div>	
 						</div>
+						
+						<p:spacer/>
+						
+						<div class="row">
+							<div class="col-md-4 col-xs-12">
+								<p:outputLabel for="telephone" value="Telefone"/>
+							</div>
+							<div class="col-md-3 col-xs-12">
+								<p:inputMask mask="(99) 9999-9999" styleClass="col-md-12 col-xs-12" id="telephone" value="#{customerBean.customer.telephoneNumber}"/>
+								<p:message for="telephone" display="text"/>
+							</div>	
+						
+							<div class="col-md-2 col-xs-12">
+								<p:outputLabel for="cellPhone" value="Celular"/>
+							</div>
+							<div class="col-md-3 col-xs-12">
+								<p:inputMask mask="(99) 9 9999-9999" styleClass="col-md-12 col-xs-12" id="cellPhone" value="#{customerBean.customer.cellPhoneNumber}"/>
+								<p:message for="cellPhone" display="text"/>
+							</div>	
+						</div>
+						
+						<p:spacer/>
+																														
+						<div class="row">
+							<div class="col-md-offset-4 col-md-6">
+								<p:captcha id="captcha" label="Captcha"/>
+							</div>
+						</div>
+						
+						<p:spacer/>
 						
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 col-xs-12">
-								<p:commandButton styleClass="col-md-12 col-xs-12" value="Cadastrar" action="#{customerBean.incluir}" rendered="#{!currentCustomer.logged}"/>
-								<p:commandButton styleClass="col-md-12 col-xs-12" value="Alterar" 	action="#{customerBean.alterar}" rendered="#{currentCustomer.logged}"/>
+								<p:commandButton styleClass="col-md-12 col-xs-12" value="Enviar para análise" action="#{customerBean.sendToReview}" rendered="#{!currentUser.logged}" ajax="false"/>
 							</div>
 						</div>
 						

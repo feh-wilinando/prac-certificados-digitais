@@ -34,10 +34,12 @@
 
 						<div class="row">
 							<div class="col-md-5 col-xs-12 col-md-offset-6">
-								<p:commandButton value="Entrar" styleClass="col-md-12 col-xs-12"
+								<p:commandButton id="enter" value="Entrar" styleClass="col-md-12 col-xs-12"
 									action="${loginBean.efetuaLogin}" />
 							</div>
 						</div>
+						
+						<p:defaultCommand target="enter"/>
 
 					</fieldset>
 				</div>

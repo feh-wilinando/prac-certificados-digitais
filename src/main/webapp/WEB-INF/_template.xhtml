@@ -1,22 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<title>Certificado Digital</title>
 </h:head>
 <body>
-	<header>
-		<div class="col-md-6 col-xs-12 col-md-offset-4">
-			<p:graphicImage url="http://www.prac.com.br/site/images/logotipo1.jpg" />
-		</div>
-		<nav class="col-md-3 col-xs-12 col-md-offset-4">
-			<p:menubar rendered="${currentCustomer.logged}">
-				<p:menuitem value="Certificados" url="/certificados/listagem.xhtml"/>
-				<p:menuitem value="Meu Cadastro" url="/clientes/formulario.xhtml?id=${currentCustomer.get().id}"/>
-			</p:menubar>
+	<header>		
+		<nav class="row">
+			<div class="col-md-12 col-xs-12">
+				<div class="col-md-3 col-xs-12 col-md-offset-4">
+					<p:graphicImage url="http://www.prac.com.br/site/images/logotipo1.jpg" />
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<h:form rendered="#{currentCustomer.logged || currentUser.logged}">
+	
+						<p:menubar>
+							
+							<p:menuitem value="Meu Cadastro"
+									url="/clientes/formulario.xhtml?id=${currentCustomer.get().id}"
+									icon="fa fa-user" rendered="#{currentCustomer.logged}" />
+							
+	
+							<p:submenu label="Certificados" icon="fa fa-certificate">
+								<p:menuitem value="Listar"
+									url="/certificados/listagem.xhtml" icon="fa fa-list" />
+								<p:menuitem value="Solicitar"
+									url="/certificados/solicitacao.xhtml" icon="fa fa-cloud-upload" />
+							</p:submenu>
+	
+							<f:facet name="options">
+								<!-- <p:inputText style="margin-right:10px" placeholder="Search" /> -->
+	
+								<p:commandButton value="Sair" action="#{customerLoginBean.logout}"
+										icon="fa fa-sign-out" />
+							</f:facet>
+	
+						</p:menubar>
+	
+					</h:form>
+				</div>
+			</div>
 		</nav>
 	</header>
 	<section class="container-fluid">

@@ -1,5 +1,4 @@
 insert User(email,password,active) values('prac@prac.com.br','jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=', true);
 insert Role(name) values('ADMIN');
-insert Role(name) values('USER');
 insert User_Role(User_email,roles_name) values('prac@prac.com.br','ADMIN');    
-insert Customer(companyName,street,number,complement,city,state,zipCode,companyRegistration,municipalRegistration,stateRegistration,user_email) values('Programa de Responsabilidade Ambiental Compartilhada','Avenida Pacaembu',1976,'','São Paulo','SP','01234-000', '08.883.961/0001-99','3.634.637-3','','prac@prac.com.br');
+insert Customer(companyName, companyRegistration, municipalRegistration, stateRegistration, street, number, complement,  city, state,  zipCode, contact, email, jobTitle,  telephoneNumber, cellPhoneNumber, active) values('Smart Cube IT - Soluções em Tecnologia', '24.152.817/0001-43', '123123213', '321321312', 'Rua Vergueiro', 6264, 'Casa 2', 'São Paulo', 'SP', '04272-100', 'Fernando Furtado', 'feh.wilinando@gmail.com', 'Desenvolvedor Java','1124232419', '11960458507', true);

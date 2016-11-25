@@ -7,10 +7,10 @@
 	<display-name>certificado-digital</display-name>
 
 	<welcome-file-list>
-		<welcome-file>/users/login.xhtml</welcome-file>
+		<welcome-file>/clientes/login.xhtml</welcome-file>
 	</welcome-file-list>
 
-	
+
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
@@ -18,25 +18,24 @@
 			<form-error-page>/users/login.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
-	
-	
+
+
 	<security-constraint>
-		<display-name>Certificados</display-name>
+		<display-name>Admin</display-name>
 		<web-resource-collection>
-			<web-resource-name>certificados</web-resource-name>
-			<url-pattern>/certificados/*</url-pattern>
+			<web-resource-name>admin</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
-		<auth-constraint>		
-			<role-name>USER</role-name>
+		<auth-constraint>
 			<role-name>ADMIN</role-name>
 		</auth-constraint>
-	</security-constraint>	
-					
+	</security-constraint>
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>		
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -44,5 +43,25 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+	<context-param>
+		<param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+		<param-value>6Ldx8AwUAAAAAN4f5UzLE9S5JcqQp7QYgfRr3PGt</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+		<param-value>6Ldx8AwUAAAAAAk5Mpb4BBlLV53xxA_oIRuTFk8q</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>omega</param-value>
+	</context-param>
+
+
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 </web-app>
