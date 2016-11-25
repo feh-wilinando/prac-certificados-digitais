@@ -11,14 +11,15 @@ import org.apache.velocity.app.VelocityEngine;
 public class VelocityService {
 
 	private VelocityEngine velocityEngine;
+	
 	private Template template;
 	private VelocityContext context;
 
 	@Inject
-	public VelocityService(VelocityEngine velocityEngine){
+	public VelocityService(VelocityEngine velocityEngine) {
 		this.velocityEngine = velocityEngine;
 	}
-	
+
 	public VelocityService loadTemplate(String template){
 		this.template = velocityEngine.getTemplate(template,"UTF-8");				
 		this.context = new VelocityContext();			
