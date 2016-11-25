@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import br.com.fws.certificado_digital.dao.CustomerDao;
-import br.com.fws.certificado_digital.models.Customer;
+import br.com.fws.certificado_digital.models.customer.Customer;
 
 @Path("customer")
 public class CustomerResources {
@@ -33,17 +33,14 @@ public class CustomerResources {
 		try {
 			Customer customer = dao.loadByHash(hash);
 
-			System.out.println(customer);
-			System.out.println(customer.getUser());
-
 			Response response;
 
-			if (customer.getUser().isActive()) {
+			if (customer.isActive()) {
 				URI location = URI.create("/customer/activation-already-done");
 				response = Response.temporaryRedirect(location).build();
 			} else {
 
-				customer.getUser().setActive(true);
+				customer.setActive(true);
 
 				dao.update(customer);
 
