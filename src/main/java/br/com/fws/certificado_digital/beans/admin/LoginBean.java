@@ -1,4 +1,4 @@
-package br.com.fws.certificado_digital.beans;
+package br.com.fws.certificado_digital.beans.admin;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.fws.certificado_digital.dao.UserDao;
-import br.com.fws.certificado_digital.models.users.User;
+import br.com.fws.certificado_digital.models.admin.User;
 
 @Model
 public class LoginBean {
