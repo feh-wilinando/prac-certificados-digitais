@@ -1,10 +1,9 @@
 package br.com.fws.certificado_digital.services;
 
-import java.io.IOException;
+import org.apache.commons.codec.binary.Base64;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import org.jboss.security.Base64Encoder;
 
 public class EncryptorService {
 
@@ -13,12 +12,13 @@ public class EncryptorService {
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-256");
 
-			byte[] hashed = messageDigest.digest(raw.getBytes());
+			byte[] digest = messageDigest.digest(raw.getBytes());
 
-			String encoded = Base64Encoder.encode(hashed);
+
+			String encoded = Base64.encodeBase64String(digest);
 
 			return encoded;
-		} catch (NoSuchAlgorithmException | IOException e) {			
+		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
 	}
