@@ -5,3 +5,5 @@ target/
 .metadata/
 .idea/
 certificado-digital.iml
+certificado-digital.ipr
+certificado-digital.iws
