@@ -1,6 +1,8 @@
 package br.com.fws.certificado_digital.mail.template;
 
-public interface TemplateEmail {
+import java.io.Serializable;
+
+public interface TemplateEmail extends Serializable{
 
 	String getTo();
 	String getSubject();

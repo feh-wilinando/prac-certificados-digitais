@@ -1,5 +1,6 @@
 package br.com.fws.certificado_digital.services;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 
 import javax.inject.Inject;
@@ -8,7 +9,9 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-public class VelocityService {
+public class VelocityService implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private VelocityEngine velocityEngine;
 	

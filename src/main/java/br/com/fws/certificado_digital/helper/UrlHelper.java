@@ -1,10 +1,14 @@
 package br.com.fws.certificado_digital.helper;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-public class UrlHelper {
+public class UrlHelper implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Inject
 	private HttpServletRequest request;
 	

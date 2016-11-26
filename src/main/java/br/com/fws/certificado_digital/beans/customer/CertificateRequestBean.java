@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import br.com.fws.certificado_digital.dao.CertifiedDao;
-import br.com.fws.certificado_digital.helper.MailerHelper;
+import br.com.fws.certificado_digital.helper.MailQueueHelper;
 import br.com.fws.certificado_digital.helper.MessageHelper;
 import br.com.fws.certificado_digital.mail.template.CertifiedRequestTemplateEmail;
 import br.com.fws.certificado_digital.mail.template.TemplateEmail;
@@ -24,14 +24,15 @@ public class CertificateRequestBean {
 	
 	@Inject
 	private CurrentCustomer currentCustomer;
-	
-	@Inject
-	private MailerHelper mailerHelper;
 
 	@Inject
 	private MessageHelper messageHelper;
+	
 	@Inject
 	private VelocityService velocityService;
+	
+	@Inject
+	private MailQueueHelper queueHelper; 
 	
 	@Transactional
 	public String request(){
@@ -43,7 +44,8 @@ public class CertificateRequestBean {
 			certifiedDao.save(certified);
 			
 			TemplateEmail template = new CertifiedRequestTemplateEmail(certified, velocityService);
-			mailerHelper.sendFromTemplate(template );
+			
+			queueHelper.send(template);
 			
 			messageHelper
 				.onFlash()

@@ -9,6 +9,7 @@ import br.com.fws.certificado_digital.services.VelocityService;
 
 public class CertifiedRequestTemplateEmail implements TemplateEmail {
 
+	private static final long serialVersionUID = 1L;
 	private static final String TO = "feh.wilinando@gmail.com";	
 	private VelocityService velocityService;
 	private Certified certified;
