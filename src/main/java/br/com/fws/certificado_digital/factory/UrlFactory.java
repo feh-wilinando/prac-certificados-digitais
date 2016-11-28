@@ -1,19 +1,21 @@
-package br.com.fws.certificado_digital.helper;
+package br.com.fws.certificado_digital.factory;
+
+import br.com.fws.certificado_digital.qualifier.URLBase;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-
-public class UrlHelper implements Serializable{
+@ApplicationScoped
+public class UrlFactory implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private HttpServletRequest request;
-	
-	
-	public String getBaseURL() {
+	@Produces
+	@URLBase
+	public String getBaseURL(HttpServletRequest request) {
 		String contextPath 	= request.getContextPath();
 		String requestURL 	= request.getRequestURL().toString();
 		

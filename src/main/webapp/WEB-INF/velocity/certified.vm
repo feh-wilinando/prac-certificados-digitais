@@ -20,52 +20,57 @@
 
     <tr>
       <td><strong>Nota</strong></td>
-      <td>$invoice</td>
+      <td>$certified.invoice</td>
       <td><strong>Data da solicitação</strong></td>
-      <td>$requestDate</td>
+      <td>$!certified.requestDate.format($dateTimeFormatter)</td>
      </tr>
      
      <tr>
      	<td><strong>Quantidade</strong></td>
-	    <td>$quantity</td>
+	    <td>$!certified.quantity</td>
 	    <td><strong>Peso</strong></td>
-	    <td>$weigth</td>	
+	    <td>$decimalFormat.format($!certified.weigth)</td>
      </tr>
-     
+
+     <tr>
+         <td><strong>Local de Retirada</strong></td>
+         <td>$!certified.issuePoint</td>
+     </tr>
+
      <tr>
        <td><strong>Empresa:</strong></td>
-       <td colspan="6">$companyName</td>
+       <td colspan="6">$!certified.customer.companyName</td>
      </tr>
      <tr>  
        <td><strong>CNPJ:</strong></td>
-       <td colspan="6">$companyRegistration</td>
+       <td colspan="6">$!certified.customer.companyRegistration</td>
      </tr>
 
      <tr>
        <td><strong>Nome:</strong></td>
-       <td>$contact</td>
+       <td>$!certified.customer.contact</td>
        <td><strong>Cargo:</strong></td>
-       <td>$jobTitle</td>
+       <td>$!certified.customer.jobTitle</td>
      </tr>
 
      <tr>
        <td><strong>E-mail:</strong></td>
-       <td>$email</td>
+       <td>$!certified.customer.email</td>
      </tr>
 
      <tr>
        <td><strong>Telefone:</strong></td>
-       <td>$telephone</td>
+       <td>$!certified.customer.telephoneNumber</td>
      </tr>
      <tr>
        <td><strong>Celular:</strong></td>
-       <td>$cellPhone</td>
+       <td>$!certified.customer.cellPhoneNumber</td>
      </tr>
 
 
    </table>
 
-   <a href="http://127.0.0.1:8080/certificado-digital/certificados/formulario.xhtml?client_id=$client_id&certified_id=$certified_id" style="text-decoration: none;">
+   <a href="$urlBase/certificados/solicitacao.xhtml?id=$!certified.id" style="text-decoration: none;">
      <div
        style="height: 1em; margin: auto; width: 33.33%; background: #024981; text-align: center; padding: 1em; color: #FFF">
        Visualizar</div>

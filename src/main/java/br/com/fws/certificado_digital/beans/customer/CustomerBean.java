@@ -8,11 +8,11 @@ import javax.transaction.Transactional;
 
 import br.com.caelum.stella.type.Estado;
 import br.com.fws.certificado_digital.dao.CustomerDao;
+import br.com.fws.certificado_digital.helper.JMSHelper;
 import br.com.fws.certificado_digital.helper.MailerHelper;
 import br.com.fws.certificado_digital.helper.MessageHelper;
-import br.com.fws.certificado_digital.helper.UrlHelper;
+import br.com.fws.certificado_digital.factory.UrlFactory;
 import br.com.fws.certificado_digital.mail.template.CustomerInsertTemplateEmail;
-import br.com.fws.certificado_digital.mail.template.TemplateEmail;
 import br.com.fws.certificado_digital.models.customer.Customer;
 import br.com.fws.certificado_digital.security.CurrentCustomer;
 import br.com.fws.certificado_digital.services.VelocityService;
@@ -28,19 +28,16 @@ public class CustomerBean {
 	private CustomerDao dao;
 	
 	@Inject
-	private VelocityService velocityService;
-	
-	@Inject
-	private UrlHelper urlHelper;
-	
-	@Inject
 	private MessageHelper messageHelper;
-	
-	@Inject
-	private MailerHelper mailHelper;
 
 	@Inject
 	private CurrentCustomer currentCustomer;
+
+	@Inject
+	private CustomerInsertTemplateEmail template;
+
+	@Inject
+	private JMSHelper jmsHelper;
 
 
 	public void loadViewParam(){
@@ -80,9 +77,9 @@ public class CustomerBean {
 		}
 		
 		
-		TemplateEmail template = new CustomerInsertTemplateEmail(customer, velocityService, urlHelper);
+		template.setTemplatable(customer);
 		
-		mailHelper.sendFromTemplate(template);
+		jmsHelper.sendTemplate(template);
 		
 		messageHelper
 			.onFlash()

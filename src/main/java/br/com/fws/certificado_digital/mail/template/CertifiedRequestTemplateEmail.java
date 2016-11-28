@@ -5,21 +5,25 @@ import java.time.format.DateTimeFormatter;
 
 import br.com.fws.certificado_digital.models.customer.Certified;
 import br.com.fws.certificado_digital.models.customer.Customer;
+import br.com.fws.certificado_digital.qualifier.URLBase;
 import br.com.fws.certificado_digital.services.VelocityService;
+
+import javax.inject.Inject;
 
 public class CertifiedRequestTemplateEmail implements TemplateEmail {
 
 	private static final long serialVersionUID = 1L;
-	private static final String TO = "feh.wilinando@gmail.com";	
+	private static final String TO = "feh.wilinando@gmail.com";
+
+	@Inject
 	private VelocityService velocityService;
+
 	private Certified certified;
-	
-	
-	public CertifiedRequestTemplateEmail(Certified certified, VelocityService velocityService) {
-		this.certified = certified;
-		this.velocityService = velocityService;
-	}
-	
+
+	@Inject @URLBase
+	private String urlBase;
+
+
 	@Override
 	public String getTo() {
 		return TO;
@@ -34,26 +38,22 @@ public class CertifiedRequestTemplateEmail implements TemplateEmail {
 	public String getBody() {
 		Customer customer = certified.getCustomer();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 		
 		return				
 				velocityService
 					.loadTemplate("certified.vm")
-					.set("companyName", customer.getCompanyName())
-					.set("companyRegistration", customer.getCompanyRegistration())
-					.set("contact", customer.getContact())
-					.set("jobTitle", customer.getJobTitle())
-					.set("email", customer.getEmail())
-					.set("telephone", customer.getTelephoneNumber())
-					.set("cellPhone", customer.getCellPhoneNumber())
-					.set("invoice", certified.getInvoice())
-					.set("requestDate", certified.getRequestDate().format(formatter))
-					.set("quantity", certified.getQuantity())
-					.set("weigth", decimalFormat.format(certified.getWeigth()))
-					.set("client_id", customer.getId())
-					.set("certified_id", certified.getId())
+					.set("certified", certified)
+					.set("urlBase", urlBase)
+					.set("dateTimeFormatter", dateTimeFormatter)
+					.set("decimalFormat", decimalFormat)
 				.getContent();
+	}
+
+	@Override
+	public void setTemplatable(Templatable entity) {
+		this.certified = entity.unwrap(Certified.class);
 	}
 
 }

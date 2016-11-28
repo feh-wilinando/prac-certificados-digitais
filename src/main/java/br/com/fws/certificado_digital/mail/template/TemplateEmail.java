@@ -7,5 +7,5 @@ public interface TemplateEmail extends Serializable{
 	String getTo();
 	String getSubject();
 	String getBody();
-	
+	void setTemplatable(Templatable entity);
 }

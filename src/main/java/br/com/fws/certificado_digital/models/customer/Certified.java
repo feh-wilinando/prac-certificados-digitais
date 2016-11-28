@@ -1,5 +1,7 @@
 package br.com.fws.certificado_digital.models.customer;
 
+import br.com.fws.certificado_digital.mail.template.Templatable;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -14,7 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Certified implements Serializable {
+public class Certified implements Serializable, Templatable {
 
 	@Transient
 	private static final long serialVersionUID = 1L;

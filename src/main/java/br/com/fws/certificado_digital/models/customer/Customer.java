@@ -15,13 +15,14 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import br.com.fws.certificado_digital.mail.template.Templatable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(columnNames="companyRegistration"))
-public class Customer implements Serializable {
+public class Customer implements Serializable, Templatable {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
