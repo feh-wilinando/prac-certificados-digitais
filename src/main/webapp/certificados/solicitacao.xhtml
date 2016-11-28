@@ -8,9 +8,18 @@
 
 	<ui:composition template="/WEB-INF/_template.xhtml">
 
+		<f:metadata>
+			<f:viewParam id="id" name="id" value="${certificateRequestBean.id}" />
+			<f:viewAction action="${certificateRequestBean.loadViewParam}" />
+		</f:metadata>
+
+
 		<ui:define name="content">
 
 			<h:form>
+
+				<h:inputHidden value="${certificateRequestBean.certified.id}"/>
+
 				<div class="col-md-5 col-xs-12 col-md-offset-4">	
 					<p:messages showDetail="true" showSummary="true" showIcon="false" globalOnly="true"/>
 													

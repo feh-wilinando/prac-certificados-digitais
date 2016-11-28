@@ -8,12 +8,13 @@ import javax.transaction.Transactional;
 
 import br.com.caelum.stella.type.Estado;
 import br.com.fws.certificado_digital.dao.CustomerDao;
-import br.com.fws.certificado_digital.helper.MailQueueHelper;
+import br.com.fws.certificado_digital.helper.MailerHelper;
 import br.com.fws.certificado_digital.helper.MessageHelper;
 import br.com.fws.certificado_digital.helper.UrlHelper;
 import br.com.fws.certificado_digital.mail.template.CustomerInsertTemplateEmail;
 import br.com.fws.certificado_digital.mail.template.TemplateEmail;
 import br.com.fws.certificado_digital.models.customer.Customer;
+import br.com.fws.certificado_digital.security.CurrentCustomer;
 import br.com.fws.certificado_digital.services.VelocityService;
 
 
@@ -36,8 +37,12 @@ public class CustomerBean {
 	private MessageHelper messageHelper;
 	
 	@Inject
-	private MailQueueHelper queueHelper;
-			
+	private MailerHelper mailHelper;
+
+	@Inject
+	private CurrentCustomer currentCustomer;
+
+
 	public void loadViewParam(){
 		if (id != null) {
 			this.customer = dao.findById(id);
@@ -77,13 +82,18 @@ public class CustomerBean {
 		
 		TemplateEmail template = new CustomerInsertTemplateEmail(customer, velocityService, urlHelper);
 		
-		queueHelper.send(template);
+		mailHelper.sendFromTemplate(template);
 		
 		messageHelper
 			.onFlash()
 				.addInfoMessage("Cliente incluído para análise", "O Resultado da análise será enviado para o e-mail do cadastro!");
-		
-		return "/clientes/formulario.xhtml?faces-redirect=true";
+
+
+		if (currentCustomer.isLogged()){
+			return "/certificacos/listatem?faces-redirect=true";
+		}else{
+			return "/clientes/formulario?faces-redirect=true";
+		}
 	}
 
 	

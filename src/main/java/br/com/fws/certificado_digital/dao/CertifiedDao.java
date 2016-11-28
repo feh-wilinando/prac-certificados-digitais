@@ -17,7 +17,7 @@ public class CertifiedDao implements Serializable {
 	private EntityManager manager;
 	
 	public List<Certified> allOf(Customer customer){
-		return manager.createQuery("select c from Certified c join fetch c.customer c where c.id = :customer",Certified.class)
+		return manager.createQuery("select c from Certified c where c.customer = :customer",Certified.class)
 				.setParameter("customer", customer)
 				.getResultList();
 	}
@@ -28,5 +28,9 @@ public class CertifiedDao implements Serializable {
 
 	public void save(Certified certified) {
 		manager.persist(certified);
+	}
+
+	public void update(Certified certified) {
+		manager.merge(certified);
 	}
 }

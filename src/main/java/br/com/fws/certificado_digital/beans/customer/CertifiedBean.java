@@ -11,6 +11,7 @@ import br.com.fws.certificado_digital.dao.CustomerDao;
 import br.com.fws.certificado_digital.models.customer.Certified;
 import br.com.fws.certificado_digital.models.customer.Customer;
 import br.com.fws.certificado_digital.security.CurrentCustomer;
+import br.com.fws.certificado_digital.services.CertifiedService;
 
 @Model
 public class CertifiedBean {
@@ -26,9 +27,12 @@ public class CertifiedBean {
 	
 	@Inject
 	private CustomerDao customerDao;
+
+	@Inject
+	private CertifiedService certifiedService;
 	
 	
-	public void preViewLoad(){
+	public void loadViewParam(){
 		
 		
 		if (currentCustomer.isLogged()) {
@@ -46,8 +50,17 @@ public class CertifiedBean {
 		return certifieds;
 	}
 	
-	public String requestCertified(){		
-		return "/certificados/solicitacao?faces-redirect=true";		
+	public Long getCliend_id() {
+		return cliend_id;
 	}
-	
+	public void setCliend_id(Long cliend_id) {
+		this.cliend_id = cliend_id;
+	}
+
+	public String generate(Certified certified) {
+
+		certifiedService.generate(certified);
+
+		return "";
+	}
 }

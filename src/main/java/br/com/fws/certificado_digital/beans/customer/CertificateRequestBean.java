@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import br.com.fws.certificado_digital.dao.CertifiedDao;
-import br.com.fws.certificado_digital.helper.MailQueueHelper;
+import br.com.fws.certificado_digital.helper.MailerHelper;
 import br.com.fws.certificado_digital.helper.MessageHelper;
 import br.com.fws.certificado_digital.mail.template.CertifiedRequestTemplateEmail;
 import br.com.fws.certificado_digital.mail.template.TemplateEmail;
@@ -14,8 +14,12 @@ import br.com.fws.certificado_digital.models.customer.Customer;
 import br.com.fws.certificado_digital.security.CurrentCustomer;
 import br.com.fws.certificado_digital.services.VelocityService;
 
+import java.time.LocalDate;
+
 @Model
 public class CertificateRequestBean {
+
+	private Long id;
 
 	private Certified certified = new Certified();
 	
@@ -31,21 +35,37 @@ public class CertificateRequestBean {
 	@Inject
 	private VelocityService velocityService;
 	
+
 	@Inject
-	private MailQueueHelper queueHelper; 
-	
+	private MailerHelper mailhelper;
+
+	public void loadViewParam(){
+
+		if (id != null){
+			certified = certifiedDao.findById(id);
+		}
+
+	}
+
+
 	@Transactional
 	public String request(){
 		
 		if (currentCustomer.isLogged()) {
 			Customer customer = currentCustomer.get();					
-			
+
 			certified.setCustomer(customer);
-			certifiedDao.save(certified);
-			
+
+			if(certified.getId() != null){
+				certified.setRequestDate(LocalDate.now());
+				certifiedDao.update(certified);
+			}else {
+				certifiedDao.save(certified);
+			}
+
 			TemplateEmail template = new CertifiedRequestTemplateEmail(certified, velocityService);
 			
-			queueHelper.send(template);
+			mailhelper.sendFromTemplate(template);
 			
 			messageHelper
 				.onFlash()
@@ -61,5 +81,12 @@ public class CertificateRequestBean {
 	public Certified getCertified() {
 		return certified;
 	}
-		
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }
